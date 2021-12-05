@@ -6,6 +6,10 @@ import UserScreen from './UserScreen'
 import CommunityScreen from './CommunityScreen'
 import AllListScreen from './AllListScreen'
 import TextField from '@mui/material/TextField';
+import HomeIcon from '@mui/icons-material/Home';
+import GroupsIcon from '@mui/icons-material/Groups';
+import PersonIcon from '@mui/icons-material/Person';
+import FunctionsIcon from '@mui/icons-material/Functions';
 export default function HomeWrapper() {
     const { auth } = useContext(AuthContext);
     const [screen, setScreen] = useState(0);
@@ -36,14 +40,14 @@ export default function HomeWrapper() {
 
 
     let ShowScreen = <HomeScreen />
-    let ScreenButtons = <div>
-    <button onClick={Home}>Home</button>
-    <button onClick={AllList}>All List</button>
-    <button onClick={User}>User List</button>
-    <button onClick={Community}>Community</button>
+    let ScreenButtons = <div id="selectorButton">
+    <HomeIcon className="button-spacing" onClick={Home}/>
+    <GroupsIcon className="button-spacing" onClick={AllList}/>
+    <PersonIcon className="button-spacing" onClick={User}/>
+    <FunctionsIcon className="button-spacing" onClick={Community}/>
+    <input id="Screen-textbox"/>
     </div>
     
-    let ScreenSwitch = 0
 
     if(screen === 0){
         ShowScreen = <HomeScreen />

@@ -6,7 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 import List from '@mui/material/List';
 
 const UserScreen = () => {
-    return <div>UserScreen</div>
+    return (<div>UserScreen</div>)
 }
 
 export default UserScreen

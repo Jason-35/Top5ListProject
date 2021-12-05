@@ -6,7 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 import List from '@mui/material/List';
 
 const AllListScreen = () => {
-    return <div>AllScreen</div>
+    return (<div>AllScreen</div>)
 
 }
 

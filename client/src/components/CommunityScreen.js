@@ -6,7 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 import List from '@mui/material/List';
 
 const CommunityScreen = () => {
-    return <div>Community</div>
+    return (<div>Community</div>)
 }
 
 export default CommunityScreen
