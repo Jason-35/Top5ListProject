@@ -13,7 +13,7 @@ export default function SplashScreen() {
                     Already Have an Account? Login!<button><Link to='/login/'>Login</Link></button><br />
                     Have a Trial Run<button>Guest</button><br />
                 </div>
-                <div id="info">Some Information</div>
+                <div id="info">Safe and Secured <br /> Implementation using MongoDB and React</div>
         </div>
     )
 }

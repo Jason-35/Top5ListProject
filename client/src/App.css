@@ -56,6 +56,12 @@ body {
 #info {
   color: black;
   font-size: 1vw;
+  background-image: linear-gradient(to bottom, #b8082e, #dacc14);
+  width: 40%;
+  height: 150px;
+  margin-top: 110px;
+  float: right;
+  margin-right: 110px;
 }
 #service-btn {
   color: black;
@@ -65,7 +71,7 @@ body {
   height: 150px;
   float: left;
   margin-top: 110px;
-  vertical-align:middle
+  text-align: center;
 }
 #splash-screen {
   background-image: linear-gradient(to bottom, #b8b808, #636723);
