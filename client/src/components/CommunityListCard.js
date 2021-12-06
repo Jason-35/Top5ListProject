@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import ListItem from "@mui/material/ListItem";
 import AuthContext from "../auth";
+import IconButton from "@mui/material/IconButton";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
@@ -26,6 +27,16 @@ function CommunityListCard(props) {
 
   function expand() {
     setExpanding(!expanding);
+  }
+
+  function like(event, id) {
+    event.stopPropagation();
+    store.likeList(id);
+  }
+
+  function dislike(event, id) {
+    event.stopPropagation();
+    store.communitydislikeList(id);
   }
 
   let item1 = " ";
@@ -58,8 +69,26 @@ function CommunityListCard(props) {
           }}
         >
           <Box sx={{ p: 1, flexGrow: 1 }}>{idNamePair.name}</Box>
-          <ThumbUpIcon />
-          <ThumbDownIcon />
+          <Box>
+            <IconButton aria-label="dislikes">
+              <ThumbUpIcon
+                onClick={(event) => {
+                  like(event, idNamePair._id);
+                }}
+              />{" "}
+              {idNamePair.likes}
+            </IconButton>
+          </Box>
+          <Box>
+            <IconButton aria-label="dislikes">
+              <ThumbDownIcon
+                onClick={(event) => {
+                  dislike(event, idNamePair._id);
+                }}
+              />{" "}
+              {idNamePair.dislikes}
+            </IconButton>
+          </Box>
           <ArrowDownwardIcon onClick={expand} />
           <div>views: 32</div>
         </ListItem>

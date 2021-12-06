@@ -171,6 +171,45 @@ function GlobalStoreContextProvider(props) {
     }
   };
 
+  store.likeList = async function (id) {
+    let response = await api.getTop5ListById(id);
+    if (response.data.success) {
+      let top5List = response.data.top5List;
+      top5List.likes = top5List.likes + 1;
+      async function updateList(top5List) {
+        response = await api.updateTop5ListById(top5List._id, top5List);
+      }
+      updateList(top5List);
+      store.loadIdNamePairs();
+    }
+  };
+
+  store.dislikeList = async function (id) {
+    let response = await api.getTop5ListById(id);
+    if (response.data.success) {
+      let top5List = response.data.top5List;
+      top5List.dislikes = top5List.dislikes + 1;
+      async function updateList(top5List) {
+        response = await api.updateTop5ListById(top5List._id, top5List);
+      }
+      updateList(top5List);
+      store.loadIdNamePairs();
+    }
+  };
+
+  store.communitydislikeList = async function (id) {
+    let response = await api.getTop5ListById(id);
+    if (response.data.success) {
+      let top5List = response.data.top5List;
+      top5List.dislikes = top5List.dislikes + 1;
+      async function updateList(top5List) {
+        response = await api.updateTop5ListById(top5List._id, top5List);
+      }
+      updateList(top5List);
+      store.loadPublishedList();
+    }
+  };
+
   // THESE ARE THE FUNCTIONS THAT WILL UPDATE OUR STORE AND
   // DRIVE THE STATE OF THE APPLICATION. WE'LL CALL THESE IN
   // RESPONSE TO EVENTS INSIDE OUR COMPONENTS.
@@ -316,6 +355,30 @@ function GlobalStoreContextProvider(props) {
         payload: reOrderedPair,
       });
       return auth.user.email;
+    } else {
+      console.log("API FAILED TO GET THE LIST PAIRS");
+    }
+  };
+
+  store.loadPublishedList = async function () {
+    const response2 = await api.getAllTop5Lists();
+
+    if (response2.data.success) {
+      let sortedPair = [];
+      for (let i = 0; i < response2.data.data.length; i++) {
+        if (
+          response2.data.data[i].published === true &&
+          response2.data.data[i].ownerEmail !== auth.user.email
+        ) {
+          sortedPair[i] = response2.data.data[i];
+        }
+      }
+      //let reOrderedPair = sortedPair.filter((n) => n);
+
+      storeReducer({
+        type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
+        payload: sortedPair,
+      });
     } else {
       console.log("API FAILED TO GET THE LIST PAIRS");
     }

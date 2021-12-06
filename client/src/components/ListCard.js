@@ -44,6 +44,8 @@ function ListCard(props) {
     }
   }
 
+  //console.log(idNamePair);
+
   function expand() {
     setExpanding(!expanding);
   }
@@ -103,6 +105,16 @@ function ListCard(props) {
     store.publishList(id);
   }
 
+  function like(event, id) {
+    event.stopPropagation();
+    store.likeList(id);
+  }
+
+  function dislike(event, id) {
+    event.stopPropagation();
+    store.dislikeList(id);
+  }
+
   let cardElement = (
     <div>
       <Box>
@@ -135,10 +147,24 @@ function ListCard(props) {
           </Box>
 
           <Box>
-            <ThumbUpIcon /> 0
+            <IconButton aria-label="dislikes">
+              <ThumbUpIcon
+                onClick={(event) => {
+                  like(event, idNamePair._id);
+                }}
+              />{" "}
+              {idNamePair.likes}
+            </IconButton>
           </Box>
           <Box>
-            <ThumbDownIcon /> 0
+            <IconButton aria-label="dislikes">
+              <ThumbDownIcon
+                onClick={(event) => {
+                  dislike(event, idNamePair._id);
+                }}
+              />{" "}
+              {idNamePair.dislikes}
+            </IconButton>
           </Box>
           <ArrowDownwardIcon onClick={expand} />
           <div>views: 32</div>

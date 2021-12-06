@@ -10,6 +10,8 @@ const Top5ListSchema = new Schema(
     userName: { type: String, required: true },
     likes: { type: Number, required: true },
     dislikes: { type: Number, required: true },
+    //AlreadyLiked: {type: Boolean, required: true},
+    //AlreadyDisliked: {type: Boolean, required: true}
   },
   { timestamps: true },
 );
