@@ -1,3 +1,4 @@
+const top5listModel = require("../models/top5list-model");
 const Top5List = require("../models/top5list-model");
 
 createTop5List = (req, res) => {
@@ -55,6 +56,8 @@ updateTop5List = async (req, res) => {
     top5List.items = body.items;
     top5List.published = body.published;
     top5List.userName = body.userName;
+    top5List.likes = body.likes;
+    top5List.dislikes = body.dislikes;
     top5List
       .save()
       .then(() => {

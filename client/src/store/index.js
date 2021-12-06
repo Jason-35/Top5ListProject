@@ -230,6 +230,8 @@ function GlobalStoreContextProvider(props) {
       ownerEmail: auth.user.email,
       published: false,
       userName: auth.user.userName,
+      likes: 0,
+      dislikes: 0,
     };
     const response = await api.createTop5List(payload);
     if (response.data.success) {
@@ -240,8 +242,11 @@ function GlobalStoreContextProvider(props) {
         payload: newList,
       });
 
+      store.loadIdNamePairs();
+      //history.push("/");
+
       // IF IT'S A VALID LIST THEN LET'S START EDITING IT
-      history.push("/top5list/" + newList._id);
+      //history.push("/top5list/" + newList._id);
     } else {
       console.log("API FAILED TO CREATE A NEW LIST");
     }
