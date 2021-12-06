@@ -42,12 +42,40 @@ export default function HomeWrapper() {
   let ShowScreen = <HomeScreen />;
   let ScreenButtons = (
     <div id="selectorButton">
-      <HomeIcon className="button-spacing" onClick={Home} />
-      <GroupsIcon className="button-spacing" onClick={AllList} />
-      <PersonIcon className="button-spacing" onClick={User} />
-      <FunctionsIcon className="button-spacing" onClick={Community} />
-      <TextField />
-      Sort By <SortIcon />
+      <div style={{ float: "left", marginBlock: "10px" }}>
+        <HomeIcon fontSize="large" className="button-spacing" onClick={Home} />
+        <GroupsIcon
+          fontSize="large"
+          className="button-spacing"
+          onClick={AllList}
+        />
+        <PersonIcon
+          fontSize="large"
+          className="button-spacing"
+          onClick={User}
+        />
+        <FunctionsIcon
+          fontSize="large"
+          className="button-spacing"
+          onClick={Community}
+        />
+        <TextField
+          placeholder="Search"
+          type="text"
+          sx={{
+            width: "600px",
+            marginLeft: "20px",
+            background: "white",
+            outline: "none",
+            border: "none",
+          }}
+          style={{ borderRadius: 0, outline: "none" }}
+        />
+      </div>
+      <div className="sort-by-button">
+        <div style={{ marginRight: "20px" }}>Sort By </div>
+        <SortIcon fontSize="large" />
+      </div>
     </div>
   );
 

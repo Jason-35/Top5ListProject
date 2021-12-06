@@ -171,59 +171,43 @@ function GlobalStoreContextProvider(props) {
     }
   };
 
-  store.likeList = async function (id, like) {
+  store.likeList = async function (id) {
     let response = await api.getTop5ListById(id);
     if (response.data.success) {
       let top5List = response.data.top5List;
-      top5List.likes = like;
+      top5List.likes = top5List.likes + 1;
       async function updateList(top5List) {
         response = await api.updateTop5ListById(top5List._id, top5List);
       }
       updateList(top5List);
-      //store.loadIdNamePairs();
+      store.loadIdNamePairs();
     }
   };
 
-  store.dislikeList = async function (id, dislike) {
+  store.dislikeList = async function (id) {
     let response = await api.getTop5ListById(id);
     if (response.data.success) {
       let top5List = response.data.top5List;
-      top5List.dislikes = dislike;
-      //console.log(top5List.dislikes);
+      top5List.dislikes = top5List.dislikes + 1;
       async function updateList(top5List) {
         response = await api.updateTop5ListById(top5List._id, top5List);
       }
       updateList(top5List);
-      //store.loadIdNamePairs();
+      store.loadIdNamePairs();
     }
   };
 
-  store.communitydislikeList = async function (id, dislike) {
-    console.log(id);
-    console.log(dislike);
-    //let response = await api.getTop5ListById(id);
-    //if (response.data.success) {
-    //  let top5List = response.data.top5List;
-    //  top5List.dislikes = dislike;
-    //  async function updateList(top5List) {
-    //    response = await api.updateTop5ListById(top5List._id, top5List);
-    //  }
-    //  updateList(top5List);
-    //  //store.loadPublishedList();
-    //}
-  };
-
-  store.communitylikeList = async function (id, like) {
-    //let response = await api.getTop5ListById(id);
-    //if (response.data.success) {
-    //  let top5List = response.data.top5List;
-    //  top5List.likes = like;
-    //  async function updateList(top5List) {
-    //    response = await api.updateTop5ListById(top5List._id, top5List);
-    //  }
-    //  updateList(top5List);
-    //  //store.loadPublishedList();
-    //}
+  store.communitydislikeList = async function (id) {
+    let response = await api.getTop5ListById(id);
+    if (response.data.success) {
+      let top5List = response.data.top5List;
+      top5List.dislikes = top5List.dislikes + 1;
+      async function updateList(top5List) {
+        response = await api.updateTop5ListById(top5List._id, top5List);
+      }
+      updateList(top5List);
+      store.loadPublishedList();
+    }
   };
 
   // THESE ARE THE FUNCTIONS THAT WILL UPDATE OUR STORE AND

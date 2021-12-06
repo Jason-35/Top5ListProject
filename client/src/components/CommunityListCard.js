@@ -16,13 +16,6 @@ function CommunityListCard(props) {
   const { auth } = useContext(AuthContext);
   const { idNamePair } = props;
   const [expanding, setExpanding] = useState(false);
-  let offset = 0;
-  if (idNamePair.likes > 0) {
-    offset = 1;
-  }
-
-  const [like, setLike] = useState(idNamePair.likes + offset);
-  const [dislike, setDislike] = useState(idNamePair.dislikes + offset);
 
   function handleLoadList(event, id) {
     event.stopPropagation();
@@ -36,18 +29,14 @@ function CommunityListCard(props) {
     setExpanding(!expanding);
   }
 
-  function handlelike(event, id) {
+  function like(event, id) {
     event.stopPropagation();
-    console.log(like);
-    setLike(like + 1);
-    console.log(idNamePair);
-    store.likeList(id, like);
+    store.likeList(id);
   }
 
-  function handledislike(event, id) {
+  function dislike(event, id) {
     event.stopPropagation();
-    setDislike(dislike + 1);
-    store.dislikeList(id, dislike);
+    store.communitydislikeList(id);
   }
 
   let item1 = " ";
@@ -84,20 +73,20 @@ function CommunityListCard(props) {
             <IconButton aria-label="dislikes">
               <ThumbUpIcon
                 onClick={(event) => {
-                  handlelike(event, idNamePair._id);
+                  like(event, idNamePair._id);
                 }}
               />{" "}
-              {like}
+              {idNamePair.likes}
             </IconButton>
           </Box>
           <Box>
             <IconButton aria-label="dislikes">
               <ThumbDownIcon
                 onClick={(event) => {
-                  handledislike(event, idNamePair._id);
+                  dislike(event, idNamePair._id);
                 }}
               />{" "}
-              {dislike}
+              {idNamePair.dislikes}
             </IconButton>
           </Box>
           <ArrowDownwardIcon onClick={expand} />

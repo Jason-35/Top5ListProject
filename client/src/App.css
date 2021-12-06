@@ -120,9 +120,18 @@ body {
 
 #selectorButton {
   border: solid 1px black;
-  height: 100%px;
+  height: 100px;
   width: 100%;
 }
+
+.sort-by-button {
+  display: flex;
+  float: right;
+  font-size: 35px;
+  margin-block: 20px;
+  margin-right: 10px;
+}
+
 #top5-list-selector {
   position: absolute;
   left: 0%;
@@ -157,7 +166,8 @@ body {
 
 .list-cards {
   margin-bottom: 20px;
-  background-color: rgb(155, 111, 196);
+  margin-inline: 20px;
+  background-color: rgb(155, 194, 240);
   border-radius: 10px;
 }
 
