@@ -12,10 +12,7 @@ const CommunityScreen = () => {
         store.loadCommunityList();
     }, []);
 
-    //function test(){
-    //    store.loadCommunityList();
-    //}
-//
+
     let listCard = "";
     if (store) {
         listCard = 
@@ -37,15 +34,6 @@ const CommunityScreen = () => {
         <div id="top5-list-selector">
            
             <div id="list-selector-heading">
-            <Fab 
-                color="primary" 
-                aria-label="add"
-                id="add-list-button"
-             
-            >
-                <AddIcon />
-            </Fab>
-                <Typography variant="h2">Your Lists</Typography>
             </div>
             <div id="list-selector-list">
                 {

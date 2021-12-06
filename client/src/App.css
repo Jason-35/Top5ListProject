@@ -84,7 +84,7 @@ body {
   padding-left: 10%;
   padding-top: 5%;
   padding-bottom: 5%;
-  height:70%;
+  height: 70%;
   text-align: center;
   vertical-align: center;
 }
@@ -114,12 +114,11 @@ body {
   cursor: not-allowed;
 }
 
-.button-spacing{
+.button-spacing {
   margin: 10px;
 }
 
-#selectorButton{
-  
+#selectorButton {
   border: solid 1px black;
   height: 100%px;
   width: 100%;
@@ -157,7 +156,6 @@ body {
 }
 
 .list-cards {
-  
   margin-bottom: 20px;
   background-color: rgb(155, 111, 196);
   border-radius: 10px;
@@ -167,7 +165,7 @@ body {
   background-color: grey;
 }
 
-#Add-List-Btn{
+#Add-List-Btn {
   background-color: grey;
   display: flex;
   align-items: center;
@@ -191,6 +189,14 @@ body {
 
 #add-list-button {
   float: left;
+}
+
+#list-selector-scroll {
+  overflow-y: scroll;
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
 }
 
 #list-selector-list {
