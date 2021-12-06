@@ -34,6 +34,7 @@ function ListCard(props) {
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
   const [expanding, setExpanding] = useState(false);
+  const [workspace, setWorkSpace] = useState(false);
 
   function handleLoadList(event, id) {
     event.stopPropagation();
@@ -98,6 +99,10 @@ function ListCard(props) {
     setOpen(false);
   }
 
+  function handlePublish(id) {
+    store.publishList(id);
+  }
+
   let cardElement = (
     <div>
       <Box>
@@ -108,6 +113,7 @@ function ListCard(props) {
           button
           onClick={(event) => {
             handleLoadList(event, idNamePair._id);
+            setWorkSpace(!workspace);
           }}
           style={{
             fontSize: "28pt",
@@ -124,12 +130,16 @@ function ListCard(props) {
               }}
               aria-label="delete"
             >
-              <DeleteIcon style={{ fontSize: "15pt" }} />
+              <DeleteIcon style={{ fontSize: "20pt" }} />
             </IconButton>
           </Box>
 
-          <ThumbUpIcon />
-          <ThumbDownIcon />
+          <Box>
+            <ThumbUpIcon /> 0
+          </Box>
+          <Box>
+            <ThumbDownIcon /> 0
+          </Box>
           <ArrowDownwardIcon onClick={expand} />
           <div>views: 32</div>
         </ListItem>
@@ -150,7 +160,7 @@ function ListCard(props) {
             sx={{ marginTop: "15px", display: "flex", p: 0 }}
             button
             onClick={(event) => {
-              //handleLoadList(event, idNamePair._id)
+              //handleLoadList(event, idNamePair._id);
             }}
             style={{
               fontSize: "28pt",
@@ -184,6 +194,56 @@ function ListCard(props) {
           By: {auth.user.userName}
         </div>
         <div>Published: {idNamePair.createdAt}</div>
+      </div>
+    );
+  }
+
+  if (workspace) {
+    cardElement = (
+      <div>
+        <Modal
+          open={workspace}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "76%",
+              height: "60%",
+              bgcolor: "background.paper",
+              border: "2px solid #000",
+              boxShadow: 24,
+              p: 4,
+              borderRadius: 2,
+            }}
+          >
+            <WorkspaceScreen />
+            <Stack direction="row" spacing={2}>
+              <Button
+                onClick={() => {
+                  setWorkSpace(!workspace);
+                }}
+                variant="contained"
+              >
+                SAVE
+              </Button>
+
+              <Button
+                onClick={(event) => {
+                  setWorkSpace(!workspace);
+                  handlePublish(idNamePair._id);
+                }}
+                variant="contained"
+              >
+                PUBLISH
+              </Button>
+            </Stack>
+          </Box>
+        </Modal>
       </div>
     );
   }
