@@ -38,6 +38,16 @@ function ListCard(props) {
   const [open, setOpen] = useState(false);
   const [expanding, setExpanding] = useState(false);
   const [workspace, setWorkSpace] = useState(false);
+  let likeOffset = 0;
+  if (idNamePair.likes > 0) {
+    likeOffset = 1;
+  }
+  let dislikeOffset = 0;
+  if (idNamePair.dislikes > 0) {
+    dislikeOffset = 1;
+  }
+  const [like, setLike] = useState(idNamePair.likes + likeOffset);
+  const [dislike, setDislike] = useState(idNamePair.likes + dislikeOffset);
 
   function handleLoadList(event, id) {
     event.stopPropagation();
@@ -108,14 +118,16 @@ function ListCard(props) {
     store.publishList(id);
   }
 
-  function like(event, id) {
+  function handlelike(event, id) {
     event.stopPropagation();
-    store.likeList(id);
+    store.likeList(id, like);
+    setLike(like + 1);
   }
 
-  function dislike(event, id) {
+  function handledislike(event, id) {
     event.stopPropagation();
-    store.dislikeList(id);
+    store.dislikeList(id, dislike);
+    setDislike(dislike + 1);
   }
 
   let Comments = (
@@ -177,10 +189,10 @@ function ListCard(props) {
               <ThumbUpIcon
                 style={{ fontSize: "30pt", marginInline: "10px" }}
                 onClick={(event) => {
-                  like(event, idNamePair._id);
+                  handlelike(event, idNamePair._id);
                 }}
               />{" "}
-              {idNamePair.likes}
+              {like}
             </IconButton>
           </Box>
           <Box marginX={4.5}>
@@ -188,10 +200,10 @@ function ListCard(props) {
               <ThumbDownIcon
                 style={{ fontSize: "30pt", marginInline: "10px" }}
                 onClick={(event) => {
-                  dislike(event, idNamePair._id);
+                  handledislike(event, idNamePair._id);
                 }}
               />{" "}
-              {idNamePair.dislikes}
+              {dislike}
             </IconButton>
           </Box>
 

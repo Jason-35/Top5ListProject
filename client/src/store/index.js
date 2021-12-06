@@ -171,29 +171,29 @@ function GlobalStoreContextProvider(props) {
     }
   };
 
-  store.likeList = async function (id) {
+  store.likeList = async function (id, like) {
     let response = await api.getTop5ListById(id);
     if (response.data.success) {
       let top5List = response.data.top5List;
-      top5List.likes = top5List.likes + 1;
+      top5List.likes = like;
       async function updateList(top5List) {
         response = await api.updateTop5ListById(top5List._id, top5List);
       }
       updateList(top5List);
-      store.loadIdNamePairs();
+      //store.loadIdNamePairs();
     }
   };
 
-  store.dislikeList = async function (id) {
+  store.dislikeList = async function (id, dislike) {
     let response = await api.getTop5ListById(id);
     if (response.data.success) {
       let top5List = response.data.top5List;
-      top5List.dislikes = top5List.dislikes + 1;
+      top5List.dislikes = dislike;
       async function updateList(top5List) {
         response = await api.updateTop5ListById(top5List._id, top5List);
       }
       updateList(top5List);
-      store.loadIdNamePairs();
+      //store.loadIdNamePairs();
     }
   };
 
