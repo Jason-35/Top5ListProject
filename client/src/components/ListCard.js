@@ -35,6 +35,12 @@ function ListCard(props) {
   const [open, setOpen] = useState(false);
   const [expanding, setExpanding] = useState(false);
   const [workspace, setWorkSpace] = useState(false);
+  let offset = 0;
+  if (idNamePair.likes > 0) {
+    offset = 1;
+  }
+  const [like, setLike] = useState(idNamePair.likes + offset);
+  const [dislike, setDislike] = useState(idNamePair.dislikes + offset);
 
   function handleLoadList(event, id) {
     event.stopPropagation();
@@ -46,7 +52,8 @@ function ListCard(props) {
 
   //console.log(idNamePair);
 
-  function expand() {
+  function expand(event) {
+    event.stopPropagation();
     setExpanding(!expanding);
   }
   let item1 = " ";
@@ -105,14 +112,16 @@ function ListCard(props) {
     store.publishList(id);
   }
 
-  function like(event, id) {
+  function handlelike(event, id) {
     event.stopPropagation();
-    store.likeList(id);
+    setLike(like + 1);
+    store.likeList(id, like);
   }
 
-  function dislike(event, id) {
+  function handledislike(event, id) {
     event.stopPropagation();
-    store.dislikeList(id);
+    setDislike(dislike + 1);
+    store.dislikeList(id, dislike);
   }
 
   let cardElement = (
@@ -150,23 +159,27 @@ function ListCard(props) {
             <IconButton aria-label="dislikes">
               <ThumbUpIcon
                 onClick={(event) => {
-                  like(event, idNamePair._id);
+                  handlelike(event, idNamePair._id);
                 }}
               />{" "}
-              {idNamePair.likes}
+              {like}
             </IconButton>
           </Box>
           <Box>
             <IconButton aria-label="dislikes">
               <ThumbDownIcon
                 onClick={(event) => {
-                  dislike(event, idNamePair._id);
+                  handledislike(event, idNamePair._id);
                 }}
               />{" "}
-              {idNamePair.dislikes}
+              {dislike}
             </IconButton>
           </Box>
-          <ArrowDownwardIcon onClick={expand} />
+          <ArrowDownwardIcon
+            onClick={(event) => {
+              expand(event);
+            }}
+          />
           <div>views: 32</div>
         </ListItem>
       </Box>
