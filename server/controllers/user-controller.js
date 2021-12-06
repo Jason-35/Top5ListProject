@@ -8,8 +8,7 @@ getLoggedIn = async (req, res) => {
         return res.status(200).json({
             loggedIn: true,
             user: {
-                firstName: loggedInUser.firstName,
-                lastName: loggedInUser.lastName,
+                userName: loggedInUser.userName,
                 email: loggedInUser.email
             }
         }).send();
@@ -18,13 +17,13 @@ getLoggedIn = async (req, res) => {
 
 loginUser = async (req, res) => {
   
-    const { email, password } = req.body;
-    if(!email || !password) {
+    const { userName, password } = req.body;
+    if(!userName || !password) {
         return res
             .status(400)
             .json({ errorMessage: "Please enter all required fields" });
     }
-    const existingUser = await User.findOne({ email: email });
+    const existingUser = await User.findOne({ userName: userName });
     
     if(!existingUser){
         return res
@@ -46,8 +45,7 @@ loginUser = async (req, res) => {
             }).status(200).json({
                 loggedIn: true,
                 user: {
-                    firstName: existingUser.firstName,
-                    lastName: existingUser.lastName,
+                    userName: existingUser.userName,
                     email: existingUser.email
                 }
             })
@@ -61,11 +59,22 @@ loginUser = async (req, res) => {
 
 registerUser = async (req, res) => {
     try {
-        const { firstName, lastName, email, password, passwordVerify } = req.body;
-        if (!firstName || !lastName || !email || !password || !passwordVerify) {
+        const { userName, email, password, passwordVerify } = req.body;  
+      
+       
+        if (!userName || !email || !password || !passwordVerify) {
             return res
                 .status(400)
                 .json({ errorMessage: "Please enter all required fields." });
+        }
+        const existingUsername = await User.findOne({ userName: userName });
+        if (existingUsername) {
+            return res
+                .status(400)
+                .json({
+                    success: false,
+                    errorMessage: "An account with this Username already exists."
+                })
         }
         if (password.length < 8) {
             return res
@@ -91,12 +100,13 @@ registerUser = async (req, res) => {
                 })
         }
 
+
         const saltRounds = 10;
         const salt = await bcrypt.genSalt(saltRounds);
         const passwordHash = await bcrypt.hash(password, salt);
 
         const newUser = new User({
-            firstName, lastName, email, passwordHash
+            userName, email, passwordHash
         });
         const savedUser = await newUser.save();
 
@@ -109,8 +119,7 @@ registerUser = async (req, res) => {
         }).status(200).json({
             success: true,
             user: {
-                firstName: savedUser.firstName,
-                lastName: savedUser.lastName,
+                userName: savedUser.userName,
                 email: savedUser.email
             }
         }).send();

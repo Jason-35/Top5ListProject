@@ -97,7 +97,7 @@ function AuthContextProvider(props) {
             store.loadIdNamePairs();
             }
         }catch (e){
-            if(e.response.data.errorMessage === 'Please enter all required fields.' || e.response.data.errorMessage === 'Please enter a password of at least 8 characters.' 
+            if(e.response.data.errorMessage === "An account with this Username already exists." || e.response.data.errorMessage === 'Please enter all required fields.' || e.response.data.errorMessage === 'Please enter a password of at least 8 characters.' 
             || e.response.data.errorMessage === 'Please enter the same password twice.' || e.response.data.errorMessage === 'An account with this email address already exists.'){
                 setAuth({
                     user: null,

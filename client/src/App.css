@@ -156,6 +156,25 @@ body {
   font-size: 36pt;
 }
 
+.list-cards {
+  
+  margin-bottom: 20px;
+  background-color: rgb(155, 111, 196);
+  border-radius: 10px;
+}
+
+.screen-background {
+  background-color: grey;
+}
+
+#Add-List-Btn{
+  background-color: grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
 #list-selector-heading {
   position: absolute;
   left: 0%;

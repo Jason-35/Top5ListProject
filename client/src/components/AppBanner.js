@@ -85,8 +85,8 @@ export default function AppBanner() {
         let firstInit = ""
         let lastInit = ""
         if(loggedIn){
-            firstInit = auth.user.firstName[0]
-            lastInit = auth.user.lastName[0]
+            firstInit = auth.user.userName[0]
+            lastInit = auth.user.userName[1]
             return <div>{firstInit + lastInit}</div>
         }else{
             return <AccountCircle />;

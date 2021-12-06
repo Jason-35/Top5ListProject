@@ -211,10 +211,12 @@ function GlobalStoreContextProvider(props) {
     // THIS FUNCTION CREATES A NEW LIST
     store.createNewList = async function () {
         let newListName = "Untitled" + store.newListCounter;
+        console.log(auth.user)
         let payload = {
             name: newListName,
             items: ["?", "?", "?", "?", "?"],
-            ownerEmail: auth.user.email
+            ownerEmail: auth.user.email,
+            
         };
         const response = await api.createTop5List(payload);
         if (response.data.success) {
@@ -231,6 +233,49 @@ function GlobalStoreContextProvider(props) {
         }
         else {
             console.log("API FAILED TO CREATE A NEW LIST");
+        }
+    }
+
+    store.loadUserList = async function(){
+
+    }
+
+    store.loadCommunityList = async function() {
+        const response2 = await api.getAllTop5Lists()
+        
+        if(response2.data.success){
+            let sortedPair = []
+            for(let i = 0; i < response2.data.data.length; i++){
+                if(response2.data.data[i].ownerEmail !== auth.user.email){
+                    sortedPair[i] = response2.data.data[i]
+                }
+            }
+            let reOrderedPair = sortedPair.filter(n => n)
+            console.log(response2.data.data)
+            
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
+                payload: reOrderedPair
+            });
+            return auth.user.email
+  
+            
+        }else {
+            console.log("API FAILED TO GET THE LIST PAIRS");
+        }
+    }
+
+    store.loadAllList = async function() {
+        const response = await api.getTop5ListPairs();
+        if (response.data.success) {
+            let pairsArray = response.data.idNamePairs;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
+                payload: pairsArray
+            });
+        }
+        else {
+            console.log("API FAILED TO GET THE LIST PAIRS");
         }
     }
 
@@ -409,13 +454,6 @@ function GlobalStoreContextProvider(props) {
         modal.classList.remove("is-visible");
     }
 
-    //store.showDelModal = function() {
-    //    setDelModal(true)
-    //}
-//
-    //store.hideDelModal = function() {
-    //    setDelModal(false)
-    //}
 
 
     return (

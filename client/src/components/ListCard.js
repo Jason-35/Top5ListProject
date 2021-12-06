@@ -12,6 +12,7 @@ import Modal from '@mui/material/Modal';
 import Stack from '@mui/material/Stack';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import AuthContext from "../auth";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
@@ -77,39 +78,55 @@ function ListCard(props) {
         setOpen(false)
     }
 
+    function test(){
+        console.log(props)
+    }
+
 
     let cardElement =
-        <ListItem
-            id={idNamePair._id}
-            key={idNamePair._id}
-            sx={{ marginTop: '15px', display: 'flex', p: 1 }}
-            button
-            onClick={(event) => {
-                handleLoadList(event, idNamePair._id)
-            }
-            }
-            style={{
-                fontSize: '48pt',
-                width: '100%'
-            }}
-        >
+        <div>
+            <div>
+                <ListItem
+                id={idNamePair._id}
+                key={idNamePair._id}
+                sx={{ marginTop: '15px', display: 'flex', p: 0 }}
+                button
+                onClick={(event) => {
+                    handleLoadList(event, idNamePair._id)
+                }
+                }
+                style={{
+                    fontSize: '28pt',
+                    width: '100%',
+                }}
+            >
                 <Box sx={{ p: 1, flexGrow: 1 }}>{idNamePair.name}</Box>
                 <Box sx={{ p: 1 }}>
                     <IconButton onClick={handleToggleEdit} aria-label='edit'>
-                        <EditIcon style={{fontSize:'48pt'}} />
+                        <EditIcon style={{fontSize:'12pt'}} />
                     </IconButton>
                 </Box>
                 <Box sx={{ p: 1 }}>
                     <IconButton onClick={(event) => {
                         handleDeleteList(event, idNamePair._id)
                     }} aria-label='delete'>
-                        <DeleteIcon style={{fontSize:'48pt'}} />
+                        <DeleteIcon style={{fontSize:'15pt'}} />
                     </IconButton>
                 </Box>
                 
                 <ThumbUpIcon />
                 <ThumbDownIcon />
-        </ListItem>
+                <ArrowDownwardIcon />
+                </ListItem>
+            </div>
+            <div>
+                By: 
+            </div>
+            <div onClick={test}>
+                Edit
+            </div>
+        </div>
+        
 
     if(show){
         cardElement = 

@@ -10,6 +10,8 @@ import HomeIcon from '@mui/icons-material/Home';
 import GroupsIcon from '@mui/icons-material/Groups';
 import PersonIcon from '@mui/icons-material/Person';
 import FunctionsIcon from '@mui/icons-material/Functions';
+import SortIcon from '@mui/icons-material/Sort';
+import OwnerScreen from './OwnerScreen'
 export default function HomeWrapper() {
     const { auth } = useContext(AuthContext);
     const [screen, setScreen] = useState(0);
@@ -45,7 +47,9 @@ export default function HomeWrapper() {
     <GroupsIcon className="button-spacing" onClick={AllList}/>
     <PersonIcon className="button-spacing" onClick={User}/>
     <FunctionsIcon className="button-spacing" onClick={Community}/>
-    <input id="Screen-textbox"/>
+    <TextField />
+    Sort By <SortIcon />
+    
     </div>
     
 
