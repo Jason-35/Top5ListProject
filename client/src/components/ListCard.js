@@ -19,7 +19,7 @@ import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import WorkspaceScreen from "./WorkspaceScreen";
 import Link from "@mui/material/Link";
-import dateFormat from "dateformat";
+//mport dateFormat from "dateformat";
 
 /*
     This is a card in our list of top 5 lists. It lets select
@@ -38,6 +38,8 @@ function ListCard(props) {
   const [open, setOpen] = useState(false);
   const [expanding, setExpanding] = useState(false);
   const [workspace, setWorkSpace] = useState(false);
+  const [editing, setEditing] = useState(false);
+
   let likeOffset = 0;
   if (idNamePair.likes > 0) {
     likeOffset = 1;
@@ -55,6 +57,11 @@ function ListCard(props) {
       // CHANGE THE CURRENT LIST
       store.setCurrentList(id);
     }
+  }
+
+  if (store.getKeydownStatus() === true) {
+    store.loadIdNamePairs();
+    store.setKeydownStatus();
   }
 
   //console.log(idNamePair);
@@ -130,35 +137,6 @@ function ListCard(props) {
     setDislike(dislike + 1);
   }
 
-  let Comments = (
-    <>
-      <Box
-        mr={3}
-        p={0.5}
-        sx={{
-          bgcolor: "#FF8000",
-          border: "1px solid black",
-          borderRadius: "15px",
-          marginBlock: "10px",
-          marginTop: 0,
-        }}
-      >
-        <Link
-          sx={{
-            color: "blue",
-            textDecorationColor: "blue",
-            marginLeft: "15px",
-          }}
-          fontSize={15}
-          href="#"
-        >
-          {auth.user.userName}
-        </Link>
-        <div style={{ marginLeft: "15px", marginTop: "10px" }}>COMMENT</div>
-      </Box>
-    </>
-  );
-
   let cardElement = (
     <div
       style={{
@@ -173,7 +151,6 @@ function ListCard(props) {
           button
           onClick={(event) => {
             handleLoadList(event, idNamePair._id);
-            setWorkSpace(!workspace);
           }}
           style={{
             fontSize: "28pt",
@@ -239,7 +216,11 @@ function ListCard(props) {
             textDecorationColor: "red",
             cursor: "pointer",
           }}
-          onClick={handleToggleEdit}
+          onClick={(event) => {
+            setEditing(!editing);
+            setWorkSpace(!workspace);
+            //console.log(idNamePair);
+          }}
         >
           Edit
         </div>
@@ -247,7 +228,7 @@ function ListCard(props) {
           <div style={{ float: "left", marginRight: "15px", color: "black" }}>
             Published:{" "}
           </div>
-          {dateFormat(idNamePair.createdAt, "mmmm d, yyyy")}
+          {idNamePair.createdAt}
           <div style={{ float: "right" }}>
             <div
               style={{
@@ -379,34 +360,13 @@ function ListCard(props) {
               <Box sx={{ p: 1, fontSize: "30pt" }}>4. {item4}</Box>
               <Box sx={{ p: 1, fontSize: "30pt" }}>5. {item5}</Box>
             </Box>
-
-            <Box height={315} sx={{ mt: -3, mr: 4, width: "45%" }}>
-              <Box
-                height={275}
-                sx={{
-                  fontSize: "16pt",
-                  overflowY: "scroll",
-                }}
-              >
-                {Comments}
-              </Box>
-              <TextField
-                sx={{
-                  width: "95%",
-                  bgcolor: "white",
-                  borderRadius: 1,
-                  marginTop: "10px",
-                }}
-                placeholder="Add Comment"
-              />
-            </Box>
           </Box>
 
           <div style={{ color: "#00FF00" }}>
             <div style={{ float: "left", marginRight: "15px", color: "black" }}>
               Published:{" "}
             </div>
-            {dateFormat(idNamePair.createdAt, "mmmm d, yyyy")}
+            Date
             <div style={{ float: "right" }}>
               <div
                 style={{

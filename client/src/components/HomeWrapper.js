@@ -16,6 +16,7 @@ import OwnerScreen from "./OwnerScreen";
 export default function HomeWrapper() {
   const { auth } = useContext(AuthContext);
   const [screen, setScreen] = useState(0);
+  const { store } = useContext(GlobalStoreContext);
   console.log("HomeWrapper auth.loggedIn: " + auth.loggedIn);
 
   let test = 0;
@@ -37,6 +38,12 @@ export default function HomeWrapper() {
   function AllList() {
     console.log("all list");
     setScreen(2);
+  }
+
+  function handleKeyDown(event) {
+    if (event.code === "Enter") {
+      store.setKeydownStatus();
+    }
   }
 
   let ShowScreen = <HomeScreen />;
@@ -70,6 +77,7 @@ export default function HomeWrapper() {
             border: "none",
           }}
           style={{ borderRadius: 0, outline: "none" }}
+          onKeyDown={handleKeyDown}
         />
       </div>
       <div className="sort-by-button">

@@ -124,7 +124,7 @@ function CommunityListCard(props) {
             fontSize={20}
             href="#"
           >
-            {auth.user.userName}
+            {idNamePair.userName}
           </Link>
         </Box>
 
@@ -166,35 +166,6 @@ function CommunityListCard(props) {
         </div>
       </div>
     </div>
-  );
-
-  let Comments = (
-    <>
-      <Box
-        mr={3}
-        p={0.5}
-        sx={{
-          bgcolor: "#FF8000",
-          border: "1px solid black",
-          borderRadius: "15px",
-          marginBlock: "10px",
-          marginTop: 0,
-        }}
-      >
-        <Link
-          sx={{
-            color: "blue",
-            textDecorationColor: "blue",
-            marginLeft: "15px",
-          }}
-          fontSize={15}
-          href="#"
-        >
-          {auth.user.userName}
-        </Link>
-        <div style={{ marginLeft: "15px", marginTop: "10px" }}>COMMENT</div>
-      </Box>
-    </>
   );
 
   if (expanding) {
@@ -255,7 +226,7 @@ function CommunityListCard(props) {
               fontSize={20}
               href="#"
             >
-              {auth.user.userName}
+              {idNamePair.userName}
             </Link>
           </Box>
 
@@ -280,27 +251,6 @@ function CommunityListCard(props) {
               <Box sx={{ p: 1, fontSize: "30pt" }}>3. {item3}</Box>
               <Box sx={{ p: 1, fontSize: "30pt" }}>4. {item4}</Box>
               <Box sx={{ p: 1, fontSize: "30pt" }}>5. {item5}</Box>
-            </Box>
-
-            <Box height={315} sx={{ mt: -3, mr: 4, width: "45%" }}>
-              <Box
-                height={275}
-                sx={{
-                  fontSize: "16pt",
-                  overflowY: "scroll",
-                }}
-              >
-                {Comments}
-              </Box>
-              <TextField
-                sx={{
-                  width: "95%",
-                  bgcolor: "white",
-                  borderRadius: 1,
-                  marginTop: "10px",
-                }}
-                placeholder="Add Comment"
-              />
             </Box>
           </Box>
 

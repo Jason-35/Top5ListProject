@@ -45,6 +45,9 @@ function GlobalStoreContextProvider(props) {
     showDelModal: false,
   });
 
+  const [textField, setTextField] = useState("");
+  const [keyDown, setKeyDown] = useState(false);
+
   const history = useHistory();
 
   // SINCE WE'VE WRAPPED THE STORE IN THE AUTH CONTEXT WE CAN ACCESS THE USER HERE
@@ -337,15 +340,34 @@ function GlobalStoreContextProvider(props) {
     }
   };
 
+  store.setKeydownStatus = function () {
+    setKeyDown(!keyDown);
+  };
+
+  store.getKeydownStatus = function () {
+    return keyDown;
+  };
+
   // THIS FUNCTION LOADS ALL THE ID, NAME PAIRS SO WE CAN LIST ALL THE LISTS
   store.loadIdNamePairs = async function () {
     const response2 = await api.getAllTop5Lists();
 
     if (response2.data.success) {
       let sortedPair = [];
-      for (let i = 0; i < response2.data.data.length; i++) {
-        if (response2.data.data[i].ownerEmail === auth.user.email) {
-          sortedPair[i] = response2.data.data[i];
+      if (textField) {
+        for (let i = 0; i < response2.data.data.length; i++) {
+          if (
+            response2.data.data[i].ownerEmail === auth.user.email &&
+            response2.data.data[i].name === textField
+          ) {
+            sortedPair[i] = response2.data.data[i];
+          }
+        }
+      } else {
+        for (let i = 0; i < response2.data.data.length; i++) {
+          if (response2.data.data[i].ownerEmail === auth.user.email) {
+            sortedPair[i] = response2.data.data[i];
+          }
         }
       }
       let reOrderedPair = sortedPair.filter((n) => n);
